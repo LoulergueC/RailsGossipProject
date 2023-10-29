@@ -1,0 +1,49 @@
+.gossips .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
+}
+.gossips .card {
+    transition: 0.2s;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.gossips .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+.tag {
+    padding: 2px 10px;
+    border-radius: 20px;
+    background-color: var(--bs-blue);
+    font-size: small;
+    color: white;
+}
+.tag-1 {
+    background-color: var(--bs-red);
+}
+.tag-2 {
+    background-color: var(--bs-yellow);
+}
+.tag-3 {
+    background-color: var(--bs-green);
+}
+.tag-4 {
+    background-color: var(--bs-purple);
+}
+.tag-5 {
+    background-color: var(--bs-pink);
+}
+.tag-6 {
+    background-color: var(--bs-orange);
+}
+.tag-7 {
+    background-color: var(--bs-teal);
+}
+.tag-8 {
+    background-color: var(--bs-cyan);
+}
+.tag-9 {
+    background-color: var(--bs-indigo);
+}
