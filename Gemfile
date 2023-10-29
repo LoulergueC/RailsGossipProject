@@ -71,3 +71,5 @@ group :test do
 end
 
 gem "faker", "~> 3.2"
+
+gem "rails-ujs", "~> 0.1.0"
