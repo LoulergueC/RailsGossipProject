@@ -7,7 +7,8 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
-.gossips .tags {
+.gossips .tags,
+form .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
@@ -46,4 +47,16 @@
 }
 .tag-9 {
     background-color: var(--bs-indigo);
+}
+
+.tags input[type="checkbox"] {
+    display: none;
+}
+.tags input[type="checkbox"]:not(:checked) + label {
+    opacity: 0.5;
+    cursor: pointer;
+}
+.tags input[type="checkbox"]:checked + label {
+    opacity: 1;
+    cursor: pointer;
 }

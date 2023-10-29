@@ -1,0 +1,36 @@
+<% if @gossip.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Un problème est survenu !</h4>
+        <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+        <ul>
+            <% @gossip.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<h1>Créer ton potin !</h1>
+
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+
+        <div class="mb-3">
+            <%= label_tag 'Titre', nil, class: "form-label" %>
+            <%= text_field_tag 'title', if @gossip then @gossip.title end, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+            <%= label_tag 'Contenu', nil, class: "form-label" %>
+            <%= text_area_tag 'content', if @gossip then @gossip.content end, class: "form-control" %>
+        </div>
+
+        <div class="mb-3 tags">
+            <% @tags.each do |tag| %>
+                <input type="checkbox" name="tags[]" value="<%= tag.id %>" id="<%= tag.title %>"`/>
+                <label for="<%= tag.title %>" class="tag tag-<%= tag.id %>"><%= tag.title %></label>
+            <% end %>
+        </div>
+
+        <%= submit_tag "Créer le potin", class: "btn btn-primary" %>
+
+    <% end %>

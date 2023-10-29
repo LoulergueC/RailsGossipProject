@@ -11,5 +11,8 @@ class StaticController < ApplicationController
 
   def index
     @gossips = Gossip.all
+    if flash[:notice]
+      @notice = flash[:notice]
+    end
   end
 end

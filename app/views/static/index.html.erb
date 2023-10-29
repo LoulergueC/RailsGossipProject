@@ -1,4 +1,15 @@
+<% if @notice %>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Potin créé !</h4>
+        <p>Bienvenue dans la gossip family !</p>
+    </div>
+<% end %>
+
 <h1 class="text-center my-5">Bienvenue à TheGossipProject !</h1>
+
+<div class="text-center">
+    <%= link_to "Créer ton propre potin !", new_gossip_path, class: "btn btn-primary mb-5 w-50 mx-auto" %>
+</div>
 
 <div class="gossips row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
 <% @gossips.each do |gossip| %>
