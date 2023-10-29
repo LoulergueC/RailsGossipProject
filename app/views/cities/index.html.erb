@@ -1,0 +1,15 @@
+<h1>Toutes les villes disponibles sur TheGossipProject</h1>
+
+<div class="cities row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+<% @cities.each do |city| %>
+    <div class="col">
+        <a class="card text-decoration-none" href="<%= url_for(:controller => "cities", :action => "show", :id => city.id, :only_path => true) %>">
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                <p><%= city.name %></p>
+                </blockquote>
+            </div>
+        </a>
+    </div>
+<% end %>
+</div>

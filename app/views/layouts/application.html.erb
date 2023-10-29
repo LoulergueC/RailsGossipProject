@@ -21,6 +21,12 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
+              <a class="nav-link" href="<%= url_for(:controller => "cities", :action => "index", :only_path => true) %>">Villes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= url_for(:controller => "users", :action => "index", :only_path => true) %>">Utilisateurs</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="<%= team_path %>">Team</a>
             </li>
             <li class="nav-item">

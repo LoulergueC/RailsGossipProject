@@ -1,17 +1,7 @@
-<h1>Information de profil</h1>
+<h1 class="text-center mb-5">Tous les gossips de la ville <u><%= @city.name %></u></h1>
 
-<ul>
-    <li>Prénom : <%= @user.first_name %></li>
-    <li>Nom : <%= @user.last_name %></li>
-    <li>Email : <%= @user.email %></li>
-    <% if @user.description %><li>Description : <%= @user.description %></li><% end %>
-    <li>Age : <%= @user.age %></li>
-    <li>Ville : <%= @user.city.name %></li>
-</ul>
-
-<h2>Liste des potins</h2>
 <div class="gossips row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-<% @user.gossips.each do |gossip| %>
+<% @city.gossips.each do |gossip| %>
     <div class="col">
         <a class="card text-decoration-none" href="<%= url_for(:controller => "gossips", :action => "show", :id => gossip.id, :only_path => true) %>">
             <div class="card-body">
@@ -19,6 +9,11 @@
                 <p><%= gossip.title %></p>
                 <footer class="blockquote-footer"><%= gossip.user.first_name %> <%= gossip.user.last_name[0] %>.</footer>
                 </blockquote>
+                <div class="tags">
+                    <% gossip.tags.each do |tag| %>
+                        <span class="tag tag-<%= tag.id %>"><%= tag.title %></span>
+                    <% end %>
+                </div>
             </div>
         </a>
     </div>

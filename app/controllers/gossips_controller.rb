@@ -24,13 +24,4 @@ class GossipsController < ApplicationController
       render :new
     end
   end
-
-  def author
-    @user = User.find(params[:id])
-  end
-
-  def city
-    @city = City.find(params[:id])
-    @gossips = City.find(params[:id]).gossips
-  end
 end
