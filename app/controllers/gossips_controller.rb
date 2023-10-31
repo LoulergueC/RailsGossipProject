@@ -5,6 +5,7 @@ class GossipsController < ApplicationController
   
   def show
     @gossip = Gossip.find(params[:id])
+    @comments = Comment.where(gossip_id: params[:id])
 
     if flash[:notice]
       @notice = flash[:notice]
@@ -25,7 +26,7 @@ class GossipsController < ApplicationController
       end
       redirect_to root_path, notice: "Le potin a été enregistré !"  
     else
-      render :new
+      render :new, locals: { gossip: @gossip }
     end
   end
 

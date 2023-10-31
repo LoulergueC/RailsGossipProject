@@ -1,0 +1,40 @@
+<% if @comment.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Un problème est survenu !</h4>
+        <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+        <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% @gossip = Gossip.find(params[:gossip_id]) %>
+    <% @comments = @gossip.comments %>
+<% end %>
+
+    <div class="d-flex justify-content-between">
+        <a class="text-end small" href="<%= url_for(:controller => "cities", :action => "show", :id => @gossip.user.city.id, :only_path => true) %>"><%= @gossip.user.city.name %></a>
+        <div class="tags">
+            <% @gossip.tags.each do |tag| %>
+                <span class="tag tag-<%= tag.id %>"><%= tag.title %></span>
+            <% end %>
+        </div>
+    </div>
+
+<h1><%= @gossip.title %></h1>
+
+<p><%= @gossip.content %></p>
+
+<a href="<%= url_for(:controller => "users", :action => "show", :id => @gossip.user.id, :only_path => true) %>"><p class="text-end small">- <%= @gossip.user.first_name %> <%= @gossip.user.last_name %></p></a>
+
+<%= form_tag url_for(action: 'create'), method: "post", class: "my-5" do %>
+    <%= label_tag :content, "Commentaire", class: "form-label" %>
+    <%= text_area_tag :content, nil, class: "form-control" %>
+    <%= submit_tag "Commenter", class: "btn btn-primary mt-3" %>
+<% end %>
+
+<% if @comments %>
+<% @comments.each do |comment| %>
+    <p><a href="<%= url_for(:controller => "users", :action => "show", :id => comment.user.id, :only_path => true) %>"><%= comment.user.first_name %> <%= comment.user.last_name %></a> a commenté : <%= comment.content %></p>
+<% end %>
+<% end %>

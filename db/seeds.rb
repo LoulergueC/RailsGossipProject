@@ -32,7 +32,7 @@ end
 # Create gossips associated with a user
 20.times do |i|
     Gossip.create!(
-        title: Faker::Lorem.sentence(word_count: 3),
+        title: Faker::Lorem.paragraph_by_chars(number: 14),
         content: Faker::Lorem.paragraph(sentence_count: 3),
         user_id: User.all.sample.id
     )
@@ -47,7 +47,7 @@ end
 
 # Add tags to gossips
 Gossip.all.each do |gossip|
-    rand(1..10).times do
+    rand(0..10).times do
         gossip.tags = Tag.all.sample(rand(1..10))
     end
     gossip.save!
@@ -70,3 +70,26 @@ PrivateMessage.all.each do |message|
         )
     end
 end
+
+# Create comments
+Gossip.all.each do |gossip|
+    rand(0..2).times do 
+        Comment.create!(
+            content: Faker::Lorem.paragraph(sentence_count: 3),
+            gossip_id: gossip.id,
+            user_id: User.where.not(id: gossip.user.id).sample.id
+        )
+    end
+end
+
+City.create!(
+    name: "Anonymous City",
+    zip_code: "00000"
+)
+User.create!(
+    first_name: "Anonymous",
+    last_name: "",
+    email: "",
+    age: 0,
+    city_id: City.where(name: "Anonymous City").first.id
+)

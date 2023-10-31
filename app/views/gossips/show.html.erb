@@ -1,6 +1,7 @@
 <% if @notice %>
     <div class="alert alert-success" role="alert">
         <p><%= @notice %></p>
+        <%= if local_assigns[:status] then puts "Status: #{local_assigns[:status]}" end %>
     </div>
 <% end %>
 
@@ -19,5 +20,23 @@
 
 <a href="<%= url_for(:controller => "users", :action => "show", :id => @gossip.user.id, :only_path => true) %>"><p class="text-end small">- <%= @gossip.user.first_name %> <%= @gossip.user.last_name %></p></a>
 
-<%= link_to "Modifier le potin", edit_gossip_path, class: "btn btn-primary" %>
+<%= link_to "Modifier le potin", gossip_path(@gossip), method: :edit, class: "btn btn-primary" %>
 <%= button_to "Supprimer le potin", gossip_path(@gossip), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to delete this gossip?" } %>
+
+<h4 class="mt-5 mb-3">Commentaires</h4>
+
+<div class="my-3">
+    <%= link_to "Ajouter un commentaire", new_gossip_comment_path(@gossip), class: "btn btn-primary" %>
+</div>
+
+<% if @comments %>
+<% @comments.each do |comment| %>
+    <div class="my-3">
+        <p class="mb-0"><a href="<%= url_for(:controller => "users", :action => "show", :id => comment.user.id, :only_path => true) %>"><%= comment.user.first_name %> <%= comment.user.last_name %></a> a commenté : <%= comment.content %></p>
+        <div class="d-flex justify-content-end gap-2">
+            <%= link_to "Modifier le commentaire", edit_gossip_comment_path(comment), class: "link-primary" %>
+            <%= button_to "Supprimer le commentaire", gossip_comment_path(comment), method: :delete, class: "link-danger", data: { confirm: "Are you sure you want to delete this comment?" } %>
+        </div>
+    </div>
+<% end %>
+<% end %>
