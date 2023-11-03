@@ -23,6 +23,7 @@
                 <p><%= gossip.title %></p>
                 <footer class="blockquote-footer"><%= gossip.user.first_name %> <%= gossip.user.last_name[0] %>.</footer>
                 </blockquote>
+                <div class="comment-count my-1"><span><%= gossip.comments.count %></span> commentaire<%= gossip.comments.count > 1 ? "s" : "" %></div>
                 <div class="tags">
                     <% gossip.tags.each do |tag| %>
                         <span class="tag tag-<%= tag.id %>"><%= tag.title %></span>

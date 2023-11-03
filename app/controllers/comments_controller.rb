@@ -12,26 +12,26 @@ class CommentsController < ApplicationController
     @comment.user = User.find(11) 
 
     if @comment.save
-      redirect_to gossip_path(params[:gossip_id]), notice: "Comment was successfully created."
+      redirect_to gossip_path(params[:gossip_id]), notice: "Le commentaire a bien été enregistré !"
     else
       render :new
     end
   end
 
   def edit
-
+    @gossip = Gossip.find(params[:gossip_id])
+    @comment_to_edit = @gossip.comments.find(params[:id])
+    @comments = @gossip.comments.where.not(id: params[:id])
   end
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    @comment = Comment.find(params[:id])
+    @comment.content = params[:comment][:content]
+    if @comment.save
+      redirect_to gossip_path(params[:gossip_id]), notice: "Le commentaire a bien été modifié !"
+    else
+      render :edit
     end
   end
 
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     if @comment.destroy!
-      redirect_to gossip_path(params[:gossip_id]), notice: "Comment was successfully destroyed."
+      redirect_to gossip_path(params[:gossip_id]), notice: "Le commentaire a bien été supprimé !"
     end
   end
 

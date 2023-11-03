@@ -7,6 +7,22 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
+.gossips .comment-count span {
+    font-size: small;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-white);
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: var(--bs-gray);
+}
+.gossips .comment-count {
+    color: var(--bs-gray);
+}
+
 .gossips .tags,
 form .tags {
     display: flex;
