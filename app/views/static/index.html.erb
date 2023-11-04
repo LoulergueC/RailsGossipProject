@@ -11,26 +11,4 @@
     <%= link_to "Créer ton propre potin !", new_gossip_path, class: "btn btn-primary mb-5 w-50 mx-auto" %>
 </div>
 
-<div class="gossips row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-<% @gossips.each do |gossip| %>
-    <div class="col">
-        <a class="card text-decoration-none" href="<%= url_for(:controller => "gossips", :action => "show", :id => gossip.id, :only_path => true) %>">
-            <div class="card-header">
-                <p class="card-title text-end small"><%= gossip.user.city.name %></p>
-            </div>
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                <p><%= gossip.title %></p>
-                <footer class="blockquote-footer"><%= gossip.user.first_name %> <%= gossip.user.last_name[0] %>.</footer>
-                </blockquote>
-                <div class="comment-count my-1"><span><%= gossip.comments.count %></span> commentaire<%= gossip.comments.count > 1 ? "s" : "" %></div>
-                <div class="tags">
-                    <% gossip.tags.each do |tag| %>
-                        <span class="tag tag-<%= tag.id %>"><%= tag.title %></span>
-                    <% end %>
-                </div>
-            </div>
-        </a>
-    </div>
-<% end %>
-</div>
+<%= render(:partial => "partials/gossips", :locals => { :gossips => @gossips }) %>
