@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-between">
+    <a class="text-end small" href="<%= url_for(:controller => "cities", :action => "show", :id => @gossip.user.city.id, :only_path => true) %>"><%= @gossip.user.city.name %></a>
+    <div class="tags">
+        <% @gossip.tags.each do |tag| %>
+            <span class="tag tag-<%= tag.id %>"><%= tag.title %></span>
+        <% end %>
+    </div>
+</div>
+
+<h1><%= @gossip.title %></h1>
+
+<p><%= @gossip.content %></p>
+
+<a href="<%= url_for(:controller => "users", :action => "show", :id => @gossip.user.id, :only_path => true) %>"><p class="text-end small">- <%= @gossip.user.first_name %> <%= @gossip.user.last_name %></p></a>

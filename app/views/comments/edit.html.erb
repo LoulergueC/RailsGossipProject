@@ -1,17 +1,4 @@
-    <div class="d-flex justify-content-between">
-        <a class="text-end small" href="<%= url_for(:controller => "cities", :action => "show", :id => @gossip.user.city.id, :only_path => true) %>"><%= @gossip.user.city.name %></a>
-        <div class="tags">
-            <% @gossip.tags.each do |tag| %>
-                <span class="tag tag-<%= tag.id %>"><%= tag.title %></span>
-            <% end %>
-        </div>
-    </div>
-
-<h1><%= @gossip.title %></h1>
-
-<p><%= @gossip.content %></p>
-
-<a href="<%= url_for(:controller => "users", :action => "show", :id => @gossip.user.id, :only_path => true) %>"><p class="text-end small">- <%= @gossip.user.first_name %> <%= @gossip.user.last_name %></p></a>
+<%= render(:partial => "partials/gossip_content", :locals => { :gossip => @gossip }) %>
 
 <%= form_for [@gossip, @comment_to_edit] do |f| %>
     <%= f.label :content, "Commentaire", class: "form-label" %>
@@ -19,8 +6,4 @@
     <%= f.submit "Modifier le commentaire", class: "btn btn-primary my-3" %>
 <% end %>
 
-<% if @comments %>
-<% @comments.each do |comment| %>
-    <p><%= comment.updated_at.strftime("%d/%m à %H:%M") %> <a href="<%= url_for(:controller => "users", :action => "show", :id => comment.user.id, :only_path => true) %>"><%= comment.user.first_name %> <%= comment.user.last_name %></a> a commenté : <%= comment.content %></p>
-<% end %>
-<% end %>
+<%= render(:partial => "partials/comments", locals: { comments: @comments, gossip: @gossip }) %>
