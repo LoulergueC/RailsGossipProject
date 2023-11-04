@@ -13,15 +13,17 @@ class SessionsController < ApplicationController
           session[:user_id] = user.id
           # redirige où tu veux, avec un flash ou pas
 
-          redirect_to root_path
+          flash_message :success, "Connexion reussie"
+          redirect_back(fallback_location: root_path)
       
         else
-          flash.now[:danger] = 'Invalid email/password combination'
+          flash_message :danger, "Identifiants incorrects"
           render 'new'
         end
       end
       def destroy
         session.delete(:user_id)
+        flash_message :success, "Deconnexion reussie"
         redirect_back(fallback_location: root_path)
       end
 end

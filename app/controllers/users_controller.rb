@@ -22,12 +22,11 @@ class UsersController < ApplicationController
     @user.password = params[:password][0]
 
     if @user.save
-      login(@user) dark 3
+      login(@user)
+      flash_message :success, "Compte bien créé !"
       redirect_to user_path(@user)
     else
-      @user.errors.full_messages.each do |error|
-        flash.now[:danger] = error
-      end
+      flash_errors(@user)
       render :new
     end
   end

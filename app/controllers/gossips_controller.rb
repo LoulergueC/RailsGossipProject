@@ -1,4 +1,5 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
   def index
     redirect_to "/"
   end
@@ -18,7 +19,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: 11)
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: current_user.id)
     
     if @gossip.save
       params[:tags].each do |tag|
@@ -26,7 +27,9 @@ class GossipsController < ApplicationController
       end
       redirect_to root_path, notice: "Le potin a été enregistré !"  
     else
-      render :new, locals: { gossip: @gossip }
+      flash_errors(@gossip)
+      @tags = Tag.all
+      render :new, locals: { gossip: @gossip, tags: @tags }
     end
   end
 
@@ -45,8 +48,10 @@ class GossipsController < ApplicationController
         @gossip.tags << Tag.find(tag)
       end
 
-      redirect_to gossip_path(@gossip), notice: "Le potin a bien été modifié !"
+      flash_message :success, "Le potin a bien été modifié !"
+      redirect_to gossip_path(@gossip)
     else
+      flash_errors(@gossip)
       render :edit
     end
   end
@@ -55,6 +60,13 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     if @gossip.destroy
       redirect_to '/'
+    end
+  end
+
+  def authenticate_user
+    unless current_user
+      flash_message :warning, "Veuillez vous connecter !"
+      redirect_to new_session_path
     end
   end
 end
