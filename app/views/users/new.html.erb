@@ -1,0 +1,44 @@
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-#{name == :success ? 'success' : 'danger'}" %>
+<% end %>
+
+<div class="my-5">
+<%= form_tag url_for(action: :create), method: "post" do %>
+    <div class="form-group">
+        <%= label_tag :first_name, nil, class: "form-label" %>
+        <%= text_field :first_name, nil, class: "form-control" %>
+    </div>
+    <div class="form-group mt-2">
+        <%= label_tag :last_name, nil, class: "form-label" %>
+        <%= text_field :last_name, nil, class: "form-control" %>
+    </div>
+    <div class="form-group mt-2">
+        <%= label_tag :email, nil, class: "form-label" %>
+        <%= text_field :email, nil, class: "form-control" %>
+    </div>
+    <div class="form-group mt-2">
+        <%= label_tag :password, nil, class: "form-label" %>
+        <%= password_field :password, nil, class: "form-control" %>
+    </div>
+    <div class="form-group mt-2">
+        <%= label_tag :description, nil, class: "form-label" %>
+        <%= text_area_tag :description, nil, class: "form-control" %>
+    </div>
+    <div class="form-group mt-2">
+        <%= label_tag :age, nil, class: "form-label" %>
+        <%= number_field :age, nil, class: "form-control" %>
+    </div>
+    <div class="form-group mt-2">
+        <%= label_tag :city, nil, class: "form-label" %>
+        <%= select_tag :city, options_for_select(City.all.map { |city| [city.name, city.id] }), class: "form-select" %>
+    </div>
+    
+    <div class="form-group">
+        <%= submit_tag "Register", class: "btn btn-primary w-100 mt-3" %>
+    </div>
+<% end %>
+</div>
+
+<div class="text-center">
+    <%= link_to "Déjà un compte ? Se connecter", new_session_path, class: "link link-secondary" %>
+</div>

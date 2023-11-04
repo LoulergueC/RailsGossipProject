@@ -25,7 +25,8 @@ end
         last_name: Faker::Name.last_name, 
         email: Faker::Internet.email, 
         age: Faker::Number.between(from: 10, to: 30),
-        city_id: City.all.sample.id
+        city_id: City.all.sample.id,
+        password: "123456"
     )
 end
 
@@ -89,7 +90,8 @@ City.create!(
 User.create!(
     first_name: "Anonymous",
     last_name: "",
-    email: "",
+    email: "anonymous@example.com",
+    password: "123456",
     age: 0,
     city_id: City.where(name: "Anonymous City").first.id
 )
